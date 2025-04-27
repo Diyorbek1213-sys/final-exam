@@ -7,11 +7,14 @@ import type React from "react"
 import { useEffect, useState } from "react"
 import JobCard from "@/components/JobCard"
 import LatestJobsCard from "@/components/LatestJobsCard"
+import { useSelector } from "react-redux"
+import { RootState } from "@/lib/store"
 
 const page = () => {
   const { data, error, isLoading }: any = useGetJobsFromApiQuery(undefined)
   const [filtered, setFiltered] = useState<job[]>(data)
   const [giveToken] = useUpdateTokenMutation()
+  const { darkOrLight } = useSelector((state: RootState) => state.jobs)
 
   useEffect(() => {
     const userStr = localStorage.getItem('user')
@@ -74,17 +77,17 @@ const page = () => {
   return (
     <div className="px-4 md:px-6 lg:px-8">
       <div className="mt-[82px] md:mt-[60px] sm:mt-[40px]">
-        <h1 className="font-[600] text-[36px] sm:text-[42px] md:text-[56px] lg:text-[72px] leading-[1.2] md:leading-[1.3] lg:leading-[110px] max-w-[500px] text-[#25324B]">
+        <h1 className={`${darkOrLight ? 'text-gray-300' : ''} font-[600] text-[36px] sm:text-[42px] md:text-[56px] lg:text-[72px] leading-[1.2] md:leading-[1.3] lg:leading-[110px] max-w-[500px] text-[#25324B]`}>
           Discover more than <span className="text-[#26A4FF]">5000+ Jobs</span>
         </h1>
         <div className="w-full max-w-[455px]">
           <Image src={"/shape.png"} alt="shape" width={455} height={33} priority className="w-full h-auto" />
         </div>
-        <p className="text-[#515B6F] text-[16px] md:text-[18px] lg:text-[20px] leading-[160%] max-w-[521px] mt-[15px] md:mt-[23px]">
+        <p className={`${darkOrLight ? 'text-gray-300' : ''} text-[#515B6F] text-[16px] md:text-[18px] lg:text-[20px] leading-[160%] max-w-[521px] mt-[15px] md:mt-[23px]`}>
           Great platform for the job seeker that searching for new career heights and passionate about startups.
         </p>
 
-        <div className="mt-[20px] md:mt-[23px] bg-[#ededf2] w-full max-w-[852px] p-[12px] md:p-[16px] shadow-2xl rounded-md">
+        <div className={`mt-[20px] ${darkOrLight ? 'bg-gray-300' : ''} md:mt-[23px] bg-[#ededf2] w-full max-w-[852px] p-[12px] md:p-[16px] shadow-2xl rounded-md`}>
           <form className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-2">
             <div className="flex items-center gap-[17px] w-full md:w-auto">
               <Image
@@ -139,13 +142,13 @@ const page = () => {
           </form>
         </div>
 
-        <p className="mt-[20px] md:mt-[25px] text-[#202430] font-[500] text-sm md:text-base">
+        <p className={`${darkOrLight ? 'text-gray-300' : ''} mt-[20px] md:mt-[25px] text-[#202430] font-[500] text-sm md:text-base`}>
           Popular : UI Designer, UX Researcher, Android, Admin
         </p>
 
         <div className="mt-[60px] md:mt-[80px] lg:mt-[103px]">
-          <h3 className="text-[16px] md:text-[18px] text-[#202430]">Companies we helped grow</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 md:gap-4 items-center mt-[20px] md:mt-[32px]">
+          <h3 className={`${darkOrLight ? 'text-gray-300' : ''} text-[16px] md:text-[18px] text-[#202430]`}>Companies we helped grow</h3>
+          <div className={`${darkOrLight ? 'bg-gray-300 p-4 rounded-md' : ''} grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 md:gap-4 items-center mt-[20px] md:mt-[32px]`}>
             <Image
               className="w-auto h-[30px] md:h-[40px] object-contain"
               src={"/vodafone.png"}
@@ -191,7 +194,7 @@ const page = () => {
 
         <div className="mt-[50px] md:mt-[60px] lg:mt-[72px]">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
-            <h2 className="font-[600] text-[32px] md:text-[40px] lg:text-[48px] leading-[1.2] md:leading-[1.3] lg:leading-[110px] text-[#25324B]">
+            <h2 className={`${darkOrLight ? 'text-gray-300' : ''} font-[600] text-[32px] md:text-[40px] lg:text-[48px] leading-[1.2] md:leading-[1.3] lg:leading-[110px] text-[#25324B]`}>
               Featured <span className="text-[#26A4FF]">jobs</span>
             </h2>
             <Link href={"/alljobs"} className="font-[600] leading-[160%] text-[#4640DE] text-sm md:text-base">
@@ -201,20 +204,20 @@ const page = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[20px] md:gap-[32px] mt-6 md:mt-8">
             {isLoading ? (
-              <h3 className="text-[20px] text-gray-400">Loading...</h3>
+              <h3 className={`${darkOrLight ? 'text-gray-300' : ''} text-[20px] text-gray-400`}>Loading...</h3>
             ) : data ? (
               data.map((job: job) => {
                 return <JobCard job={job} key={job.id} />
               })
             ) : (
-              <h3>No jobs here yet.</h3>
+              <h3 className={`${darkOrLight ? 'text-gray-300' : ''}`}>No jobs here yet.</h3>
             )}
           </div>
         </div>
 
         <div className="mt-[50px] md:mt-[60px] lg:mt-[72px]">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
-            <h2 className="text-[#25324B] text-[32px] md:text-[40px] lg:text-[48px] font-[600] leading-[1.2] md:leading-[1.3] lg:leading-[110%]">
+            <h2 className={`${darkOrLight ? 'text-gray-300' : ''} text-[#25324B] text-[32px] md:text-[40px] lg:text-[48px] font-[600] leading-[1.2] md:leading-[1.3] lg:leading-[110%]`}>
               Latest <span className="text-[#26A4FF]">jobs open</span>
             </h2>
             <Link href={"/alljobs"} className="font-[600] leading-[160%] text-[#4640DE] text-sm md:text-base">

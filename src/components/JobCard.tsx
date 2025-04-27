@@ -1,6 +1,8 @@
+import { RootState } from '@/lib/store'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useMemo, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 interface jobProps {
     job: {
@@ -18,6 +20,7 @@ interface jobProps {
 }
 
 const JobCard: React.FC<jobProps> = ({ job }) => {
+    const { darkOrLight } = useSelector((state: RootState) => state.jobs)
 
     const [bgColor, setBgColor] = useState(['#EB85331A', '#56CDAD1A', '#4640DE1A', '#FF65501A'])
     const renderOne = useMemo(() => {
@@ -68,18 +71,18 @@ const JobCard: React.FC<jobProps> = ({ job }) => {
         <Link href={`/${job.id}`} className="p-[24px] relative flex gap-[16px] flex-col border max-w-[300px] border-[#D6DDEB]">
             <div className="flex justify-between items-center">
                 <Image src={"/job.jpg"} alt="job" width={48} height={48} />
-                <span className="border px-[12px] py-[4px] border-[#4640DE] text-[#4640DE]">
+                <span className={`${darkOrLight ? 'text-gray-300 border-gray-300' : ''} border px-[12px] py-[4px] border-[#4640DE] text-[#4640DE]`}>
                     {job.ish_vaqti}
                 </span>
             </div>
 
             <div>
-                <h3 className="font-[600] text-[18px] text-[#25324B] leading-[160%]">{job.title}</h3>
-                <h3 className="text-[#515B6F]">{job.location}</h3>
+                <h3 className={`${darkOrLight ? 'text-gray-300' : ''} font-[600] text-[18px] text-[#25324B] leading-[160%]`}>{job.title}</h3>
+                <h3 className={`${darkOrLight ? 'text-gray-300' : ''} text-[#515B6F]`}>{job.location}</h3>
             </div>
 
             <div className="flex-1">
-                <p className="text-[#7C8493] line-clamp-3">{job.description}</p>
+                <p className={`${darkOrLight ? 'text-gray-300' : ''} text-[#7C8493] line-clamp-3`}>{job.description}</p>
             </div>
 
             <div className="flex gap-[8px] flex-wrap mt-auto">

@@ -1,8 +1,10 @@
 "use client"
 import { useGetSpecialistsQuery, useUpdateTokenMutation } from '@/lib/slices/apiSlice'
+import { RootState } from '@/lib/store'
 import { user } from '@/types/types'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 const page = () => {
   const { data, isLoading, error }: any = useGetSpecialistsQuery(undefined)

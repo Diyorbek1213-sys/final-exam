@@ -14,11 +14,13 @@ interface job {
 }
 
 interface jobsState {
-    jobs: job[] | null
+    jobs: job[] | null,
+    darkOrLight: boolean
 }
 
 const initialState: jobsState = {
-    jobs: null
+    jobs: null,
+    darkOrLight: false
 }
 
 const jobsSlice = createSlice({
@@ -27,9 +29,12 @@ const jobsSlice = createSlice({
     reducers: {
         getJobs: (state, action) => {
             state.jobs = action.payload
+        },
+        darkLight: (state, action) => {
+            state.darkOrLight = action.payload
         }
     }
 })
 
 export default jobsSlice.reducer
-export const { getJobs } = jobsSlice.actions
+export const { getJobs, darkLight } = jobsSlice.actions

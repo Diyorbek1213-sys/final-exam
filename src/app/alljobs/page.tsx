@@ -7,9 +7,12 @@ import { useCreateJobMutation, useGetJobsFromApiQuery, useUpdateTokenMutation } 
 import type { job } from "@/types/types"
 import LatestJobsCard from "@/components/LatestJobsCard"
 import JobCard from "@/components/JobCard"
+import { useSelector } from "react-redux"
+import { RootState } from "@/lib/store"
 
 const page = () => {
   const { data, isLoading, error }: any = useGetJobsFromApiQuery(undefined)
+  const { darkOrLight } = useSelector((state: RootState) => state.jobs)
   const [newJob] = useCreateJobMutation()
   const [inputValue, setInputValue] = useState("")
   const [hasError, setHasError] = useState(false)
@@ -139,19 +142,19 @@ const page = () => {
   return (
     <div className="px-4 sm:px-6 md:px-8 lg:px-10">
       <div className="flex justify-center items-center flex-col mt-10 md:mt-16 lg:mt-20">
-        <h2 className="text-center text-[#25324B] font-[600] text-[28px] sm:text-[36px] md:text-[42px] lg:text-[48px] leading-[110%]">
+        <h2 className={`${darkOrLight ? 'text-gray-300' : ''} text-center text-[#25324B] font-[600] text-[28px] sm:text-[36px] md:text-[42px] lg:text-[48px] leading-[110%]`}>
           Find your <span className="text-[#26A4FF]">dream companies</span>
         </h2>
         <div className="relative w-full max-w-[431px] flex justify-center">
           <Image className="w-full h-auto lg:ml-0" src={"/shapes.png"} alt="shape" width={431} height={12} />
         </div>
 
-        <p className="text-[16px] md:text-[18px] leading-[160%] text-[#515B6F] mt-[16px] md:mt-[24px] text-center">
+        <p className={`${darkOrLight ? 'text-gray-300' : ''} text-[16px] md:text-[18px] leading-[160%] text-[#515B6F] mt-[16px] md:mt-[24px] text-center`}>
           Find the dream companies you dream work for
         </p>
 
-        <div className="mt-[24px] md:mt-[32px] lg:mt-[40px] w-full max-w-[1192px]">
-          <form className="flex flex-col md:flex-row items-start md:items-center justify-between w-full shadow-xl p-[16px] md:p-[24px] rounded-md gap-4 md:gap-2">
+        <div className={`mt-[24px] md:mt-[32px] lg:mt-[40px] w-full max-w-[1192px]`}>
+          <form className={`${darkOrLight ? 'bg-gray-300' : ''} flex flex-col md:flex-row items-start md:items-center justify-between w-full shadow-xl p-[16px] md:p-[24px] rounded-md gap-4 md:gap-2`}>
             <div className="flex items-center gap-[17px] w-full md:w-auto">
               <Image
                 className="w-[24px] h-[24px] flex-shrink-0"
@@ -201,7 +204,7 @@ const page = () => {
               Search my job
             </button>
           </form>
-          <p className="mt-[12px] md:mt-[16px] text-[#515B6F] leading-[160%] text-sm md:text-base">
+          <p className={`${darkOrLight ? 'text-gray-300' : ''} mt-[12px] md:mt-[16px] text-[#515B6F] leading-[160%] text-sm md:text-base`}>
             Popular : Twitter, Microsoft, Apple, Facebook
           </p>
         </div>
@@ -211,40 +214,38 @@ const page = () => {
             <div className="flex flex-col lg:flex-row justify-center items-start lg:items-center gap-[16px] md:gap-[22px]">
               <div className="w-full lg:w-1/2">
                 <div className="flex flex-col mb-4">
-                  <label className="text-[#515B6F] font-[600] leading-[160%]" htmlFor="title">
+                  <label className={`${darkOrLight ? 'text-gray-300' : ''} text-[#515B6F] font-[600] leading-[160%]" htmlFor="title`}>
                     Job title
                   </label>
                   <input
                     value={createJob.title}
                     onChange={(e) => setCreateJob({ ...createJob, title: e.target.value })}
-                    className="py-[12px] px-[16px] w-full border-[#D6DDEB] outline-0 border"
+                    className={`${darkOrLight ? 'bg-gray-300' : ''}  py-[12px] px-[16px] w-full border-[#D6DDEB] outline-0 border`}
                     type="text"
                     id="title"
                     placeholder="Enter job title"
                   />
                 </div>
                 <div className="flex flex-col mb-4">
-                  <label className="text-[#515B6F] font-[600] leading-[160%]" htmlFor="location">
+                  <label className={`${darkOrLight ? 'text-gray-300' : ''} text-[#515B6F] font-[600] leading-[160%]" htmlFor="location`}>
                     Location
                   </label>
                   <input
                     value={createJob.location}
                     onChange={(e) => setCreateJob({ ...createJob, location: e.target.value })}
-                    className="py-[12px] px-[16px] w-full border-[#D6DDEB] outline-0 border"
-                    type="text"
+                    className={`${darkOrLight ? 'bg-gray-300' : ''}  py-[12px] px-[16px] w-full border-[#D6DDEB] outline-0 border`}                    type="text"
                     id="location"
                     placeholder="Enter location"
                   />
                 </div>
                 <div className="flex flex-col mb-4 lg:mb-0">
-                  <label className="text-[#515B6F] font-[600] leading-[160%]" htmlFor="description">
+                  <label className={`${darkOrLight ? 'text-gray-300' : ''} text-[#515B6F] font-[600] leading-[160%]" htmlFor="description`}>
                     Description
                   </label>
                   <input
                     value={createJob.description}
                     onChange={(e) => setCreateJob({ ...createJob, description: e.target.value })}
-                    className="py-[12px] px-[16px] w-full border-[#D6DDEB] outline-0 border"
-                    type="text"
+                    className={`${darkOrLight ? 'bg-gray-300' : ''}  py-[12px] px-[16px] w-full border-[#D6DDEB] outline-0 border`}                    type="text"
                     id="description"
                     placeholder="Enter description"
                   />
@@ -252,40 +253,37 @@ const page = () => {
               </div>
               <div className="w-full lg:w-1/2">
                 <div className="flex flex-col mb-4">
-                  <label className="text-[#515B6F] font-[600] leading-[160%]" htmlFor="company">
+                  <label className={`${darkOrLight ? 'text-gray-300' : ''} text-[#515B6F] font-[600] leading-[160%]" htmlFor="company`}>
                     Company
                   </label>
                   <input
                     value={createJob.company}
                     onChange={(e) => setCreateJob({ ...createJob, company: e.target.value })}
-                    className="py-[12px] px-[16px] w-full border-[#D6DDEB] outline-0 border"
-                    type="text"
+                    className={`${darkOrLight ? 'bg-gray-300' : ''}  py-[12px] px-[16px] w-full border-[#D6DDEB] outline-0 border`}                    type="text"
                     id="company"
                     placeholder="Enter company"
                   />
                 </div>
                 <div className="flex flex-col mb-4">
-                  <label className="text-[#515B6F] font-[600] leading-[160%]" htmlFor="salary">
+                  <label className={`${darkOrLight ? 'text-gray-300' : ''} text-[#515B6F] font-[600] leading-[160%]" htmlFor="salary`}>
                     Salary
                   </label>
                   <input
                     value={createJob.salary}
                     onChange={(e) => setCreateJob({ ...createJob, salary: e.target.value })}
-                    className="py-[12px] px-[16px] w-full border-[#D6DDEB] outline-0 border"
-                    type="number"
+                    className={`${darkOrLight ? 'bg-gray-300' : ''}  py-[12px] px-[16px] w-full border-[#D6DDEB] outline-0 border`}                    type="number"
                     id="salary"
                     placeholder="Enter salary"
                   />
                 </div>
                 <div className="flex flex-col mb-4 lg:mb-0">
-                  <label className="text-[#515B6F] font-[600] leading-[160%]" htmlFor="work">
+                  <label className={`${darkOrLight ? 'text-gray-300' : ''} text-[#515B6F] font-[600] leading-[160%]" htmlFor="work`}>
                     Work-type
                   </label>
                   <input
                     value={createJob.work_type}
                     onChange={(e) => setCreateJob({ ...createJob, work_type: e.target.value })}
-                    className="py-[12px] px-[16px] w-full border-[#D6DDEB] outline-0 border"
-                    type="text"
+                    className={`${darkOrLight ? 'bg-gray-300' : ''}  py-[12px] px-[16px] w-full border-[#D6DDEB] outline-0 border`}                    type="text"
                     id="work"
                     placeholder="Enter work-type"
                   />
@@ -293,14 +291,13 @@ const page = () => {
               </div>
             </div>
             <div className="flex flex-col">
-              <label className="text-[#515B6F] font-[600] leading-[160%]" htmlFor="time">
+              <label className={`${darkOrLight ? 'text-gray-300' : ''} text-[#515B6F] font-[600] leading-[160%]" htmlFor="time`}>
                 Time
               </label>
               <input
                 value={createJob.ish_vaqti}
                 onChange={(e) => setCreateJob({ ...createJob, ish_vaqti: e.target.value })}
-                className="py-[12px] px-[16px] w-full border-[#D6DDEB] outline-0 border"
-                type="text"
+                className={`${darkOrLight ? 'bg-gray-300' : ''}  py-[12px] px-[16px] w-full border-[#D6DDEB] outline-0 border`}                type="text"
                 id="time"
                 placeholder="Enter work time"
               />
@@ -316,12 +313,12 @@ const page = () => {
 
         <div className="flex flex-col sm:flex-row justify-between w-full max-w-[923px] mt-[40px] md:mt-[56px] lg:mt-[72px] gap-4 sm:gap-0">
           <div>
-            <h3 className="font-[600] text-[24px] md:text-[28px] lg:text-[32px] leading-[120%] text-[#25324B]">
+            <h3 className={`${darkOrLight ? 'text-gray-300' : ''} font-[600] text-[24px] md:text-[28px] lg:text-[32px] leading-[120%] text-[#25324B]`}>
               All Jobs
             </h3>
-            <h3 className="leading-[160%] text-[#25324B]">Showing {filtered?.length}</h3>
+            <h3 className={`${darkOrLight ? 'text-gray-300' : ''} leading-[160%] text-[#25324B]`}>Showing {filtered?.length}</h3>
           </div>
-          <div className="flex items-center gap-5">
+          <div className={`flex ${darkOrLight ? 'bg-gray-300 p-2 rounded-md' : ''} items-center gap-5`}>
             <button
               onClick={() => setTypeView("card")}
               className={`${typeView === "card" ? "bg-blue-300 p-1 rounded-md" : ""} cursor-pointer`}
