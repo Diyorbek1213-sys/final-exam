@@ -83,6 +83,21 @@ export const mainAPI = createApi({
         }),
         getSingleUser: builder.query({
             query: (id) => `api/users/${id}/`
+        }),
+        editJob: builder.mutation({
+            query: ({jobId, createJob}) => ({
+                url: `api/jobs/${jobId}/`,
+                method: 'PUT',
+                body: {
+                    company: createJob.company,
+                    location: createJob.location,
+                    salary: createJob.salary,
+                    description: createJob.description,
+                    ish_vaqti: createJob.ish_vaqti,
+                    work_type: createJob.work_type,
+                    title: createJob.title
+                }
+            })
         })
     })
 })
@@ -96,5 +111,6 @@ export const {
     useUpdateTokenMutation,
     useDeleteJobMutation,
     useGetSpecialistsQuery,
-    useGetSingleUserQuery
+    useGetSingleUserQuery,
+    useEditJobMutation
 } = mainAPI

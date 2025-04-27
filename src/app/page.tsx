@@ -72,6 +72,8 @@ const page = () => {
     setTimeout(() => {
       setFiltered(sorted)
     }, 700)
+
+    alert('Searched!')
   }
 
   return (
