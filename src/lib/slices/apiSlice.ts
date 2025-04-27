@@ -80,6 +80,9 @@ export const mainAPI = createApi({
         }),
         getSpecialists: builder.query({
             query: () => 'api/users/'
+        }),
+        getSingleUser: builder.query({
+            query: (id) => `api/users/${id}/`
         })
     })
 })
@@ -92,5 +95,6 @@ export const {
     useCreateJobMutation,
     useUpdateTokenMutation,
     useDeleteJobMutation,
-    useGetSpecialistsQuery
+    useGetSpecialistsQuery,
+    useGetSingleUserQuery
 } = mainAPI

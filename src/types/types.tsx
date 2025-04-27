@@ -10,3 +10,14 @@ export interface job {
     salary: string,
     user: number
 }
+
+export interface user {
+    id: number;
+    first_name: string;
+    last_name: string;
+    username: string;
+    phone: number | null;
+    email: string;
+    position: null | string;
+    age: number | null
+}
