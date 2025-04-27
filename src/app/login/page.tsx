@@ -44,6 +44,8 @@ const page = () => {
         } catch (error) {
             console.log(error)
         }
+
+        alert('Login successfully')
     }
     return (
         <div className='mt-28 flex justify-center items-center flex-col'>

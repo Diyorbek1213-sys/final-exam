@@ -9,7 +9,7 @@ import JobCard from "@/components/JobCard"
 import LatestJobsCard from "@/components/LatestJobsCard"
 
 const page = () => {
-  const { data, error, isLoading } = useGetJobsFromApiQuery(undefined)
+  const { data, error, isLoading }: any = useGetJobsFromApiQuery(undefined)
   const [filtered, setFiltered] = useState<job[]>(data)
   const [giveToken] = useUpdateTokenMutation()
 
@@ -25,6 +25,7 @@ const page = () => {
           if (res.data && res.data.access) {
             localStorage.setItem('access', JSON.stringify(res.data.access));
             console.log('Token refreshed successfully');
+            window.location.reload()
           } else {
             console.log('Failed to refresh token');
           }
@@ -193,7 +194,7 @@ const page = () => {
             <h2 className="font-[600] text-[32px] md:text-[40px] lg:text-[48px] leading-[1.2] md:leading-[1.3] lg:leading-[110px] text-[#25324B]">
               Featured <span className="text-[#26A4FF]">jobs</span>
             </h2>
-            <Link href={"#"} className="font-[600] leading-[160%] text-[#4640DE] text-sm md:text-base">
+            <Link href={"/alljobs"} className="font-[600] leading-[160%] text-[#4640DE] text-sm md:text-base">
               Show all jobs <span className="text-[20px] md:text-[30px]">&#8594;</span>
             </Link>
           </div>
@@ -216,7 +217,7 @@ const page = () => {
             <h2 className="text-[#25324B] text-[32px] md:text-[40px] lg:text-[48px] font-[600] leading-[1.2] md:leading-[1.3] lg:leading-[110%]">
               Latest <span className="text-[#26A4FF]">jobs open</span>
             </h2>
-            <Link href={"#"} className="font-[600] leading-[160%] text-[#4640DE] text-sm md:text-base">
+            <Link href={"/alljobs"} className="font-[600] leading-[160%] text-[#4640DE] text-sm md:text-base">
               Show all jobs <span className="text-[20px] md:text-[30px]">&#8594;</span>
             </Link>
           </div>

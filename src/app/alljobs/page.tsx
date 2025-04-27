@@ -3,13 +3,13 @@
 import Image from "next/image"
 import type React from "react"
 import { useEffect, useState } from "react"
-import { useCreateJobMutation, useGetJobsFromApiQuery } from "@/lib/slices/apiSlice"
+import { useCreateJobMutation, useGetJobsFromApiQuery, useUpdateTokenMutation } from "@/lib/slices/apiSlice"
 import type { job } from "@/types/types"
 import LatestJobsCard from "@/components/LatestJobsCard"
 import JobCard from "@/components/JobCard"
 
 const page = () => {
-  const { data, isLoading, error } = useGetJobsFromApiQuery(undefined)
+  const { data, isLoading, error }: any = useGetJobsFromApiQuery(undefined)
   const [newJob] = useCreateJobMutation()
   const [inputValue, setInputValue] = useState("")
   const [hasError, setHasError] = useState(false)
@@ -25,6 +25,32 @@ const page = () => {
     work_type: "",
     ish_vaqti: "",
   })
+
+  const [giveToken] = useUpdateTokenMutation()
+
+  useEffect(() => {
+    const userStr = localStorage.getItem('user')
+    const user = userStr ? JSON.parse(userStr) : null
+
+    if (error && error.status === 401) {
+      console.log('xato')
+      const refresher = async () => {
+        try {
+          const res = await giveToken(user.refresh);
+          if (res.data && res.data.access) {
+            localStorage.setItem('access', JSON.stringify(res.data.access));
+            console.log('Token refreshed successfully');
+            window.location.reload()
+          } else {
+            console.log('Failed to refresh token');
+          }
+        } catch (error) {
+          console.error('Error refreshing token:', error);
+        }
+      };
+      refresher()
+    }
+  }, [error])
 
   useEffect(() => {
     if (data) {
@@ -62,6 +88,34 @@ const page = () => {
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (createJob.title.length < 3) {
+      return alert('Iltmos title 3 ta harfdan kam bo`lmasin')
+    }
+
+    if (createJob.location.length < 3) {
+      return alert('Iltmos location 3 ta harfdan kam bo`lmasin')
+    }
+
+    if (createJob.description.length < 5) {
+      return alert('Iltmos description 5 ta harfdan kam bo`lmasin')
+    }
+
+    if (createJob.company.length < 3) {
+      return alert('Iltmos company 3 ta harfdan kam bo`lmasin')
+    }
+
+    if (createJob.salary.length === 0) {
+      return alert('Iltmos salary qiymatini kiriting')
+    }
+
+    if (createJob.work_type.length < 3) {
+      return alert('Iltmos work-type 3 ta harfdan kam bo`lmasin')
+    }
+
+    if (createJob.ish_vaqti.length < 3) {
+      return alert('Iltmos ish-vaqti 3 ta harfdan kam bo`lmasin')
+    }
 
     try {
       const res = await newJob({

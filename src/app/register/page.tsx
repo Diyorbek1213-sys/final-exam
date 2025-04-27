@@ -60,6 +60,8 @@ const page = () => {
         } catch (error) {
             console.log(error)
         }
+
+        alert('Registered successfully')
     }
 
     return (

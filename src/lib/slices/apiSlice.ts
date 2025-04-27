@@ -71,6 +71,15 @@ export const mainAPI = createApi({
                     refresh: refresh
                 }
             })
+        }),
+        deleteJob: builder.mutation({
+            query: (id) => ({
+                url: `api/jobs/${id}/`,
+                method: 'DELETE'
+            })
+        }),
+        getSpecialists: builder.query({
+            query: () => 'api/users/'
         })
     })
 })
@@ -81,5 +90,7 @@ export const {
     useRegisterMutation,
     useLoginMutation,
     useCreateJobMutation,
-    useUpdateTokenMutation
+    useUpdateTokenMutation,
+    useDeleteJobMutation,
+    useGetSpecialistsQuery
 } = mainAPI
